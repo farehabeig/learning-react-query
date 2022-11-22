@@ -6,11 +6,11 @@ export const RQSuperHeroesPage = () => {
     };
     // Requires two arguments , one a unique key, second a function that returns a promise
 
-    const { isLoading, data, isError, error } = useQuery("super-heroes", fetchSuperHeroes, {
-        staleTime: 3000,
+    const { isLoading, isFetching, data, isError, error, refetch } = useQuery("super-heroes", fetchSuperHeroes, {
+        enabled: false
     });
 
-    if (isLoading) {
+    if (isLoading || isFetching) {
         return <h2>Loading ...</h2>;
     }
     if (isError) {
@@ -19,6 +19,7 @@ export const RQSuperHeroesPage = () => {
     return (
         <>
             <h2>React Query Super Heroes Page</h2>
+            <button onClick={refetch}> Fetch heroes</button>
             {data?.data.map((hero) => {
                 return <div key={hero.name}> {hero.name}</div>;
             })}
