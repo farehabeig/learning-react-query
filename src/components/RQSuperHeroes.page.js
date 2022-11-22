@@ -2,11 +2,13 @@ import { useQuery } from "react-query";
 import axios from "axios";
 export const RQSuperHeroesPage = () => {
     const fetchSuperHeroes = () => {
-        return axios.get("http://localhost:4000/superheroe1s");
+        return axios.get("http://localhost:4000/superheroes");
     };
     // Requires two arguments , one a unique key, second a function that returns a promise
 
-    const { isLoading, data, isError, error } = useQuery("super-heroes", fetchSuperHeroes);
+    const { isLoading, data, isError, error } = useQuery("super-heroes", fetchSuperHeroes, {
+        staleTime: 3000,
+    });
 
     if (isLoading) {
         return <h2>Loading ...</h2>;
